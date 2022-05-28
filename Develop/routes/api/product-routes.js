@@ -20,17 +20,16 @@ router.get('/', (req, res) => {
       }
     ]
   })
-  .then(dbPostData => res.json(dbPostData))
+  .then(dbProductData => res.json(dbProductData))
     .catch(err => {
       console.log(err);
     });
-  // be sure to include its associated Category and Tag data
 });
 
 // get one product
 router.get('/:id', (req, res) => {
   // find a single product by its `id`
-  product.findOne({
+  Product.findOne({
     where: {
       id: req.params.id
     },
@@ -47,7 +46,7 @@ router.get('/:id', (req, res) => {
       }
     ]
   })
-  .then(dbPostData => res.json(dbPostData))
+  .then(dbProductData => res.json(dbProductData))
     .catch(err => {
       console.log(err);
     });
@@ -131,16 +130,16 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   // delete one product by its `id` value
   Product.destroy({
-    when: {
+    where: {
       id: req.params.id
     }
   })
-  .then(dbPostData => {
-    if (!dbPostData) {
+  .then(dbProductData => {
+    if (!dbProductData) {
       res.status(404).json({ message: 'No product found with this id' });
       return;
     }
-    res.json(dbPostData);
+    res.json(dbProductData);
   })
   .catch(err => {
     console.log(err);
